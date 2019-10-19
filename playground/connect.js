@@ -1,6 +1,6 @@
-const mongoclient = require('mongodb').MongoClient;
+const {MongoClient, ObjectID} = require('mongodb');
 
-mongoclient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
+MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
 	if(error){
 		console.log("Unable to connect to database");
 	}else{
@@ -40,13 +40,23 @@ mongoclient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
 	// 	console.log('Unable to count the documents');
 	// });
 
-	db.collection('User').find({
-		name:'Mukul Verma'
-	}).toArray().then((docs)=>{
-		console.log(JSON.stringify(docs, undefined, 2));
-	}, (err)=>{
-		console.log('Unable to print the documents');
+	// db.collection('User').find({
+	// 	name:'Mukul Verma'
+	// }).toArray().then((docs)=>{
+	// 	console.log(JSON.stringify(docs, undefined, 2));
+	// }, (err)=>{
+	// 	console.log('Unable to print the documents');
+	// });
+
+	db.collection('User').deleteMany({name:'Mukul Verma'}).then((result)=>{
+		console.log(result);
 	});
+
+	// db.collection('User').findOneAndDelete({
+	// 	_id: new ObjectID('5dab811ccb91e7579dd9de06')
+	// }).then((result)=>{
+	// 	console.log(result);
+	// });
 
 
 
