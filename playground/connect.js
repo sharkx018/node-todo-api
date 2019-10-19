@@ -7,6 +7,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
 		console.log('Connected!!!');
 	}
 
+	//----------------------------------------------------------------
 	// db.collection('Todo').insertOne({
 	// 	text:"This is record",
 	// 	completed:true
@@ -34,6 +35,8 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
 	// 	}
 	// });
 
+	//----------------------------------------------------------------
+
 	// db.collection('User').find().count().then((count)=>{
 	// 	console.log('Total document: '+count);
 	// }, (err)=>{
@@ -48,15 +51,30 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db)=>{
 	// 	console.log('Unable to print the documents');
 	// });
 
-	db.collection('User').deleteMany({name:'Mukul Verma'}).then((result)=>{
-		console.log(result);
-	});
+	//----------------------------------------------------------------
+	// db.collection('User').deleteMany({name:'Mukul Verma'}).then((result)=>{
+	// 	console.log(result);
+	// });
 
 	// db.collection('User').findOneAndDelete({
 	// 	_id: new ObjectID('5dab811ccb91e7579dd9de06')
 	// }).then((result)=>{
 	// 	console.log(result);
 	// });
+
+	//----------------------------------------------------------------
+
+	db.collection('User').findOneAndUpdate({
+	 _id: new ObjectID('5dab812ecb91e7579dd9de0e')
+	},{
+			$set:{ name:'Goldy Singh' },
+			$inc:{ age:-4 }
+		},
+		{returnOriginal: false}
+
+		).then((result)=>{
+			console.log(result);
+		});
 
 
 
