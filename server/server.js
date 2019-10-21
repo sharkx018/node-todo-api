@@ -1,50 +1,33 @@
-var mongoose = require('mongoose');
-
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TodoApp');
-
-var Todo = mongoose.model('Todo', {
-	text:{
-		type:{
-			String
-		}
-	},
-	completed:{
-		type:{
-			Boolean
-		}
-	}, 
-	completedAt:{
-		type:{
-			Number
-		}
-	}
-});
-
-// var newTodo = new Todo({
-// 	text:'Cook Dinner'
-// });
-
-// newTodo.save().then((result)=>{
-// 	console.log(result);
-// },(e)=>{
-// 	console.log(e);
-// });
 
 
-var toto = new Todo({
 
-	text:'fuck the gf',
-	completed:false,
-	njn:6942,
-	
 
+var {mongoose} = require('./db/mongosse.js');
+var {Todo} = require('./models/todo.js');
+var {User} = require('./models/user.js');
+
+const express = require('express');
+const bodyParser = require('body-parser');
+
+var app = express();
+app.use(bodyParser.json());
+app.post('/todo', (req, res)=>{
+
+	console.log(req.body);
+	var tt = new Todo({
+		text:req.body.text
+	});
+	tt.save().then((doc)=>{
+		res.send(doc);
+	}, (e)=>{
+		res.status(400).send(e);
+	});
 
 });
-toto.save().then((res)=>{
-	console.log(JSON.stringify(res, undefined, 2));
-}, (e)=>{
-	console.log(e);
+
+
+app.listen(3000, ()=>{
+	console.log('Server is running in port 3000');
 });
 
 
