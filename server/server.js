@@ -6,9 +6,12 @@ const {ObjectID} = require('mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+var port = process.env.PORT || 3000;
+
 var app = express();
 app.use(bodyParser.json());
-app.post('/todo', (req, res)=>{
+
+app.post('/todo', (req, res)=>{ //Adding a todo
 
 	console.log(req.body);
 	var tt = new Todo({
@@ -21,7 +24,7 @@ app.post('/todo', (req, res)=>{
 	});
 
 });
-app.get('/todo', (req, res)=>{
+app.get('/todo', (req, res)=>{ // Listing all the todos
 
 	Todo.find().then((todo)=>{
 		res.send({todo});
@@ -31,7 +34,7 @@ app.get('/todo', (req, res)=>{
 
 });
 
-app.get('/todo/:id', (req, res)=>{
+app.get('/todo/:id', (req, res)=>{ // Listing a todo by id as argument
 	var id = req.params.id;
 
 	if(!ObjectID.isValid(id)){
@@ -53,7 +56,7 @@ app.get('/todo/:id', (req, res)=>{
 
 
 app.listen(3000, ()=>{
-	console.log('Server is running in port 3000');
+	console.log('Server is running in port '+port);
 });
 
 
