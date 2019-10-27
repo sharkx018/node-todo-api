@@ -9,6 +9,7 @@ if(!ObjectID.isValid(id)){
 	console.log('Invalid ID');
 }
 
+//Find
 // Todo.findById(id).then((res)=>{
 // 	console.log(JSON.stringify(res, undefined, 2));
 // });
@@ -25,10 +26,28 @@ if(!ObjectID.isValid(id)){
 // 	console.log(JSON.stringify(res, undefined, 2));
 // });
 
-User.findById(id).then((user)=>{
-	if(!user)
-		return console.log('User not found.');
-	console.log(JSON.stringify(user, undefined, 2));
-}).catch((e)=>{
-	console.log('Something went wrong', e);
+// User.findById(id).then((user)=>{
+// 	if(!user)
+// 		return console.log('User not found.');
+// 	console.log(JSON.stringify(user, undefined, 2));
+// }).catch((e)=>{
+// 	console.log('Something went wrong', e);
+// });
+
+// REMOVE
+Todo.remove({}).then((res)=>{
+	console.log(res);
+});
+
+Todo.findOneAndRemove({
+	_id:id
+
+}).then((res)=>{
+	console.log(res);
+
+});
+
+
+Todo.findByIdAndRemove(id).then((res)=>{
+	console.log(res);
 });
