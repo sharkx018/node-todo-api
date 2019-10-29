@@ -10,44 +10,27 @@ if(!ObjectID.isValid(id)){
 }
 
 //Find
-// Todo.findById(id).then((res)=>{
-// 	console.log(JSON.stringify(res, undefined, 2));
-// });
-
-// Todo.findOne({
-// 	_id : id
-// }).then((res)=>{
-// 	console.log(JSON.stringify(res, undefined, 2));
-// });
-
-// Todo.find({
-// 	_id : id
-// }).then((res)=>{
-// 	console.log(JSON.stringify(res, undefined, 2));
-// });
-
-// User.findById(id).then((user)=>{
-// 	if(!user)
-// 		return console.log('User not found.');
-// 	console.log(JSON.stringify(user, undefined, 2));
-// }).catch((e)=>{
-// 	console.log('Something went wrong', e);
-// });
-
-// REMOVE
-Todo.remove({}).then((res)=>{
-	console.log(res);
+Todo.findById(id).then((res)=>{
+	console.log(JSON.stringify(res, undefined, 2));
 });
 
-Todo.findOneAndRemove({
-	_id:id
-
+Todo.findOne({
+	_id : id
 }).then((res)=>{
-	console.log(res);
-
+	console.log(JSON.stringify(res, undefined, 2));
 });
 
-
-Todo.findByIdAndRemove(id).then((res)=>{
-	console.log(res);
+Todo.find({
+	_id : id
+}).then((res)=>{
+	console.log(JSON.stringify(res, undefined, 2));
 });
+
+User.findById(id).then((user)=>{
+	if(!user)
+		return console.log('User not found.');
+	console.log(JSON.stringify(user, undefined, 2));
+}).catch((e)=>{
+	console.log('Something went wrong', e);
+});
+
