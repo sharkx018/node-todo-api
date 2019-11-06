@@ -2,6 +2,8 @@ var {mongoose} = require('./db/mongosse.js');
 var {Todo} = require('./models/todo.js');
 var {User} = require('./models/user.js');
 const {ObjectID} = require('mongodb');
+const {authenticate} = require('./middleware/middleware');
+const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 
 const express = require('express');
@@ -116,6 +118,15 @@ app.post('/users', (req, res)=>{
 	});
 
 });
+
+
+
+app.get('/users/me', authenticate, (req, res) => {
+
+		res.send(req.user);
+
+});
+
 
 
 app.listen(3000, ()=>{
