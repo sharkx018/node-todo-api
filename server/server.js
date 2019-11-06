@@ -4,6 +4,7 @@ var {User} = require('./models/user.js');
 const {ObjectID} = require('mongodb');
 const {authenticate} = require('./middleware/middleware');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const _ = require('lodash');
 
 const express = require('express');
@@ -112,8 +113,9 @@ app.post('/users', (req, res)=>{
 	user.save().then((user)=>{
 		return user.generateAuthToken();
 	}).then((token) => {
-		res.header('x-auth', token).send(user);
-	}).catch((e)=>{
+			res.header('x-auth', token).send(user);
+		})
+	.catch((e)=>{
 		res.status(404).send(e);
 	});
 
@@ -124,6 +126,31 @@ app.post('/users', (req, res)=>{
 app.get('/users/me', authenticate, (req, res) => {
 
 		res.send(req.user);
+
+});
+
+app.post('/users/login', (req, res) => {
+	
+	var ee = req.body.email;
+	var jj = req.body.password;
+	//res.send( ee );
+
+	User.findByCredentials(ee, jj).then((user)=>{
+		return user.generateAuthToken().then((token) => {
+			res.header('x-auth',token).send(user);
+		});
+	}).catch((e)=>{
+		res.status(401).send(e);
+	});
+
+	// User.findByCredentials(ee, jj).then((user)=>{
+	// 	return user.generateAuthToken();
+	// }).then((token) => {
+	// 		res.header('x-auth', token).send(user);
+	// 	})
+	// .catch((e)=>{
+	// 	res.status(404).send(e);
+	// });
 
 });
 
