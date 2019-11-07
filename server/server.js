@@ -1,3 +1,5 @@
+require('./config/config.js');
+
 var {mongoose} = require('./db/mongosse.js');
 var {Todo} = require('./models/todo.js');
 var {User} = require('./models/user.js');
@@ -10,7 +12,7 @@ const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-var port = process.env.PORT || 3000;
+
 
 var app = express();
 app.use(bodyParser.json());
@@ -178,8 +180,8 @@ app.delete('/users/me/token', authenticate, (req, res) => {
 
 
 
-app.listen(3000, ()=>{
-	console.log('Server is running in port '+port);
+app.listen(process.env.PORT, ()=>{
+	console.log('Server is running in port '+process.env.PORT);
 });
 
 
