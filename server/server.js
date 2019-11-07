@@ -129,6 +129,8 @@ app.get('/users/me', authenticate, (req, res) => {
 
 });
 
+
+
 app.post('/users/login', (req, res) => {
 	
 	var ee = req.body.email;
@@ -143,6 +145,7 @@ app.post('/users/login', (req, res) => {
 		res.status(401).send(e);
 	});
 
+	//DOUBT Why this code is not working.
 	// User.findByCredentials(ee, jj).then((user)=>{
 	// 	return user.generateAuthToken();
 	// }).then((token) => {
@@ -151,6 +154,16 @@ app.post('/users/login', (req, res) => {
 	// .catch((e)=>{
 	// 	res.status(404).send(e);
 	// });
+
+});
+
+app.delete('/users/me/token', authenticate, (req, res) => {
+
+	req.user.removeToken(req.token).then(()=>{
+		res.status(200).send();
+	}, (e)=>{
+		res.status(401).send();
+	});
 
 });
 
